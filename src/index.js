@@ -27,7 +27,7 @@ function onLoadMore() {
     newsApiService.fetchArticles().then(renderGallary)
 }
 
-
+//
 // function alertImagesFound(data) {
 //     Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
 //   }
