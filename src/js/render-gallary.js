@@ -1,4 +1,4 @@
-
+import SimpleLightbox from 'simplelightbox';
 export {renderGallary}
 const gallary = document.querySelector('.gallery')
 
@@ -27,5 +27,9 @@ function renderGallary (photo) {
       </div>`
     })
     gallary.insertAdjacentHTML('beforeend', gallaryRander);
-    
+
+    new SimpleLightbox('.gallery a', {
+      captionsData: 'alt', // опис
+      captionDelay: 250, // затримка 250 мілісекунд
+    });
 };

@@ -1,7 +1,7 @@
 import { fetchImages } from './js/fetch-Image';
 import { renderGallary } from './js/render-gallary';
 import { Notify } from 'notiflix';
-import SimpleLightbox from 'simplelightbox';
+
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import NewsApiService from './js/fetch-Image';
 
