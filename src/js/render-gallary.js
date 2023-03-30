@@ -1,5 +1,7 @@
+
 export {renderGallary}
 const gallary = document.querySelector('.gallery')
+
 
 function renderGallary (photo) {
     const gallaryRander = photo
@@ -25,4 +27,5 @@ function renderGallary (photo) {
       </div>`
     })
     gallary.insertAdjacentHTML('beforeend', gallaryRander);
+    
 };

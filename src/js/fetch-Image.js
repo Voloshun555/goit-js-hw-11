@@ -3,10 +3,10 @@ export default  class  NewsApiService {
     constructor() {
         this.saerchQuery = '';
         this.page = 1;
-        this.perPage = 5;
+        this.perPage = 40;
     }
 
-    fetchArticles() {
+    fetchHits() {
             const KEY = '34849127-969aa955091248fba76eeb517'
             const url = "https://pixabay.com/api/"
         return   fetch(`${url}?key=${KEY}&q=${this.saerchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=${this.perPage}&page=${this.page}`)
