@@ -25,11 +25,12 @@ function renderGallary (photo) {
           </p>
         </div>
       </div>`
-    })
+    }
+    )
     gallary.insertAdjacentHTML('beforeend', gallaryRander);
-
-    new SimpleLightbox('.gallery a', {
-      captionsData: 'alt', // опис
-      captionDelay: 250, // затримка 250 мілісекунд
-    });
+    simpleLightBox.refresh();
 };
+const simpleLightBox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt', // опис
+  captionDelay: 250, // затримка 250 мілісекунд
+});

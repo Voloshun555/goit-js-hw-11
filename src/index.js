@@ -5,8 +5,8 @@ import { Notify } from 'notiflix';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import NewsApiService from './js/fetch-Image';
 
+
 const form = document.querySelector('.search-form');
-const submit = document.querySelector('[type="submit"]');
 const loadMoreBtn = document.querySelector('.load-more');
 const newsApiService = new NewsApiService();
 const gallary = document.querySelector('.gallery');
@@ -14,46 +14,85 @@ const gallary = document.querySelector('.gallery');
 form.addEventListener('submit', onSearch);
 loadMoreBtn.addEventListener('click', onLoadMore);
 
-function onSearch(evt) {
+
+loadMoreBtn.classList.add("is-hidden")
+
+async function onSearch(evt) {
   evt.preventDefault();
   newsApiService.query = evt.currentTarget.searchQuery.value.trim();
-  newsApiService.resetPage();
-  newsApiService.fetchHits().then(renderGallary);
-  clearHitsMarcap();
+  
+  clearHitsMarcap()
+  
+
+  try {
+    if (!newsApiService.query) {
+      showNotification('empty')
+      return
+    }
+
+    const awaitFetch = await newsApiService.fetchHits();
+    console.log(awaitFetch.data);
+    console.log(awaitFetch.data.hits);
+    console.log(awaitFetch.data.totalHits);
+    
+    if (awaitFetch.data.totalHits === 0) {
+        
+      showNotification('failure')
+        return;
+    }
+    Notify.info(`Hooray! We found ${awaitFetch.data.totalHits} images.`)
+    renderGallary(awaitFetch.data.hits);
+    newsApiService.resetPage();
+    loadMoreBtn.classList.remove("is-hidden");
+    
+} catch (error) {
+    console.log(error.message);
 }
-function onLoadMore() {
-  newsApiService.fetchHits().then(renderGallary);
 }
+
+ async  function onLoadMore() {
+  const awaitFetch = await newsApiService.fetchHits();
+  renderGallary(awaitFetch.data.hits);
+  scrollOn()
+  newsApiService.increment()
+try {
+
+  
+  if (awaitFetch.data.hits.length  === 0) {
+    showNotification('end')
+    loadMoreBtn.style.display = 'none';
+  }
+} catch (error) {
+  console.log(error.message);
+  
+}}
 
 function clearHitsMarcap() {
   gallary.innerHTML = '';
 }
 
-//
-// function alertImagesFound(data) {
-//     Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
-//   }
+const showNotification = (status) => {
+  if (status === 'failure') {
+      Notify.failure('Sorry, there are no images matching your search query. Please try again.')
+  }
+  if (status === 'end') {
+      Notify.info('We`re sorry, but you`ve reached the end of search results.')
+  }
+  if (status === 'empty') {
+      Notify.info('Fill the form for searching')
+  }
+}
 
-//   function alertNoEmptySearch() {
-//     Notiflix.Notify.failure('The search string cannot be empty. Please specify your search query.');
-//   }
 
-//   function alertNoImagesFound() {
-//     Notiflix.Notify.failure(
-//       'Sorry, there are no images matching your search query. Please try again.',
-//     );
-//   }
 
-//   function alertEndOfSearch() {
-//     Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.");
-//   }
+function scrollOn () {
+  const { height: cardHeight } = document
+  .querySelector(".gallery")
+  .firstElementChild.getBoundingClientRect();
 
-// =======================================================================================================================================
-// const newsApiService = new NewsApiService();
-// function onSearch(e) {
-// e.preventDefault();
-// newsApiService.query = e.currentTarget.searchQuery.value.trim();
-// newsApiService.resetPage();
-// newsApiService.fetchArticles();
+window.scrollBy({
+  top: cardHeight * 2,
+  behavior: "smooth",
+});
+}
 
-// }
