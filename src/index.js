@@ -15,6 +15,8 @@ form.addEventListener('submit', onSearch);
 loadMoreBtn.addEventListener('click', onLoadMore);
 
 
+
+
 loadMoreBtn.classList.add("is-hidden")
 
 async function onSearch(evt) {
@@ -22,7 +24,7 @@ async function onSearch(evt) {
   newsApiService.query = evt.currentTarget.searchQuery.value.trim();
   
   clearHitsMarcap()
-  
+
 
   try {
     if (!newsApiService.query) {
@@ -36,13 +38,14 @@ async function onSearch(evt) {
     console.log(awaitFetch.data.totalHits);
     
     if (awaitFetch.data.totalHits === 0) {
-        
+      
+      newsApiService.resetPage();
       showNotification('failure')
         return;
     }
     Notify.info(`Hooray! We found ${awaitFetch.data.totalHits} images.`)
     renderGallary(awaitFetch.data.hits);
-    newsApiService.resetPage();
+    
     loadMoreBtn.classList.remove("is-hidden");
     
 } catch (error) {
@@ -52,15 +55,16 @@ async function onSearch(evt) {
 
  async  function onLoadMore() {
   const awaitFetch = await newsApiService.fetchHits();
-  renderGallary(awaitFetch.data.hits);
-  scrollOn()
-  newsApiService.increment()
-try {
-
   
-  if (awaitFetch.data.hits.length  === 0) {
+  
+try {
+  scrollOn()
+  renderGallary(awaitFetch.data.hits);
+  newsApiService.increment()
+
+  if (awaitFetch.data.hits > 500) {
     showNotification('end')
-    loadMoreBtn.style.display = 'none';
+    loadMoreBtn.classList.add("is-hidden")
   }
 } catch (error) {
   console.log(error.message);
