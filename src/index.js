@@ -70,13 +70,11 @@ try {
   scrollOn()
   spinnerPlay();
   
-
-  
-  if (!awaitFetch.hasMorePhotos) {
-    showNotification('end')
-    newsApiService.resetPage();
-    loadMoreBtn.classList.add("is-hidden")
-  }
+  // if (!awaitFetch.hasMorePhotos) {
+  //   showNotification('end')
+  //   newsApiService.resetPage();
+  //   loadMoreBtn.classList.add("is-hidden")
+  // }
 } catch (error) {
   console.log(error.message);
   
