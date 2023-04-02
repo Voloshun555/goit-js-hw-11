@@ -65,16 +65,16 @@ async function onSearch(evt) {
   const awaitFetch = await newsApiService.fetchHits();
   renderGallary(awaitFetch.data.hits);
   newsApiService.increment()
-  
 try {
   scrollOn()
   spinnerPlay();
+
   
-  // if (!awaitFetch.hasMorePhotos) {
-  //   showNotification('end')
-  //   newsApiService.resetPage();
-  //   loadMoreBtn.classList.add("is-hidden")
-  // }
+  if (newsApiService.perPage * newsApiService.page > awaitFetch.data.totalHits) {
+    loadMoreBtn.classList.add("is-hidden");
+    Notify.failure(`"We're sorry, but you've reached the end of search results`);
+}
+  
 } catch (error) {
   console.log(error.message);
   

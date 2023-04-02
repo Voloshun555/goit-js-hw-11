@@ -3,8 +3,7 @@ export default  class  NewsApiService {
     constructor() {
         this.saerchQuery = '';
         this.page = 1;
-        this.perPage = 40;
-        this.totalPages = 0;
+        this.perPage = 200;
     }
 
     fetchHits() {
@@ -33,12 +32,7 @@ this.saerchQuery = newQuery;
 
         setTotal(total) {
             this.totalPages = total;
-        }
-
-        hasMorePhotos() {
-            return this.page < Math.ceil(this.totalPages / this.perPage);
-        }
-        }
+        }}
     
 
 
