@@ -4,6 +4,7 @@ export default  class  NewsApiService {
         this.saerchQuery = '';
         this.page = 1;
         this.perPage = 40;
+        this.totalPages = 0;
     }
 
     fetchHits() {
@@ -18,7 +19,7 @@ increment() {
     this.page += 1;
 }
 resetPage() {
-             this.page = 1;
+ this.page = 1;
          }
 
 
@@ -28,6 +29,14 @@ return this.saerchQuery;
         }
         set query(newQuery) {
 this.saerchQuery = newQuery;
+        }
+
+        setTotal(total) {
+            this.totalPages = total;
+        }
+
+        hasMorePhotos() {
+            return this.page < Math.ceil(this.totalPages / this.perPage);
         }
         }
     
