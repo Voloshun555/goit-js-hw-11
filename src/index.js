@@ -13,37 +13,38 @@ const gallary = document.querySelector('.gallery');
 form.addEventListener('submit', onSearch);
 loadMoreBtn.addEventListener('click', onLoadMore);
 
-loadMoreBtn.classList.add("is-hidden")
+
 
 
 
 spinnerPlay();
 
 window.addEventListener('load', () => {
-  console.log('All resources finished loading!');
-
   spinnerStop();
 });
 
 
+loadMoreBtn.classList.add("is-hidden");
 
 async function onSearch(evt) {
+  
   evt.preventDefault();
   newsApiService.query = evt.currentTarget.searchQuery.value.trim();
   newsApiService.resetPage();
   spinnerPlay();
   clearHitsMarcap()
   try {
-    spinnerPlay();
-    if (!newsApiService.query) {
-      showNotification('empty')
-      return
-    }
-    
     const awaitFetch = await newsApiService.fetchHits();
     console.log(awaitFetch.data);
     console.log(awaitFetch.data.hits);
     console.log(awaitFetch.data.totalHits);
+    spinnerPlay();
+
+    if (!newsApiService.query) {
+      showNotification('empty')
+      return
+    }
+   
     
     if (awaitFetch.data.totalHits === 0) {
       showNotification('failure')
@@ -53,7 +54,11 @@ async function onSearch(evt) {
     renderGallary(awaitFetch.data.hits);
     loadMoreBtn.classList.remove("is-hidden");
     
-    
+    if (newsApiService.perPage * newsApiService.page > awaitFetch.data.totalHits) {
+      loadMoreBtn.classList.add("is-hidden");
+      showNotification('end')
+  }
+
 } catch (error) {
     console.log(error.message);
 } finally {
@@ -62,17 +67,22 @@ async function onSearch(evt) {
 }
 
  async  function onLoadMore() {
-  const awaitFetch = await newsApiService.fetchHits();
-  renderGallary(awaitFetch.data.hits);
   newsApiService.increment()
 try {
+  const awaitFetch = await newsApiService.fetchHits();
+  renderGallary(awaitFetch.data.hits);
   scrollOn()
   spinnerPlay();
 
-  
+  // if (awaitFetch.data.totalHits < 40) {
+  //   showNotification('end')
+  //   loadMoreBtn.classList.add("is-hidden");
+  //     return;
+  // }
+
   if (newsApiService.perPage * newsApiService.page > awaitFetch.data.totalHits) {
     loadMoreBtn.classList.add("is-hidden");
-    Notify.failure(`"We're sorry, but you've reached the end of search results`);
+    showNotification('end')
 }
   
 } catch (error) {
@@ -80,9 +90,9 @@ try {
   
 } finally {
   spinnerStop();
-}
+}};
 
-}
+
 
 function clearHitsMarcap() {
   gallary.innerHTML = '';

@@ -8,7 +8,7 @@ function renderGallary (photo) {
     .map(photo => {const 
       {webformatURL, largeImageURL, tags, likes, views, comments, downloads} = photo;
  return `<div class="photo-card">
- <a href="${largeImageURL}">
+ <a class="gallery__item" href="${largeImageURL}">
         <img class="photoImg" src="${webformatURL}" alt="${tags}" loading="lazy"/>
         </a>
         <div class="info">
@@ -29,7 +29,7 @@ function renderGallary (photo) {
       `;
     }
     )
-    gallary.insertAdjacentHTML('beforeend', gallaryRander);
+    gallary.insertAdjacentHTML('beforeend', gallaryRander.join(''));
     simpleLightBox.refresh();
 };
 const simpleLightBox = new SimpleLightbox('.gallery a', {
