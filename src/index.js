@@ -4,6 +4,7 @@ import { Notify } from 'notiflix';
 import { spinnerPlay, spinnerStop } from './js/spiner';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import NewsApiService from './js/fetch-Image';
+import isOpen from './js/take'
 
 const form = document.querySelector('.search-form');
 const loadMoreBtn = document.querySelector('.load-more');
@@ -12,9 +13,6 @@ const gallary = document.querySelector('.gallery');
 
 form.addEventListener('submit', onSearch);
 loadMoreBtn.addEventListener('click', onLoadMore);
-
-
-
 
 
 spinnerPlay();

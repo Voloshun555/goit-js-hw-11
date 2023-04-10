@@ -1,3 +1,13 @@
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+}
+
 body {
   background: linear-gradient(
       249deg,
@@ -58,7 +68,6 @@ p {
     #19cec3d6 68%,
     #f10202d9 98%
   );
-  justify-content: center;
   align-items: center;
   padding: 20px 0;
   display: flex;
@@ -71,6 +80,9 @@ p {
 .search-form {
   display: flex;
   justify-content: center;
+}
+.form-section{
+  margin-left: 150px;
 }
 
 .photo-card {
@@ -248,3 +260,33 @@ p {
     transform: rotate(360deg);
   }
 }
+
+/* ========================================================================================= */
+
+/* BTN TEMA */
+.change_theme {
+  cursor: pointer;
+margin-left: 50px;
+  text-align: center;
+  background: none;
+  border: 1px solid white;
+  border-radius: 5px;
+  box-shadow: 1px 4px 6px 0px rgb(0 0 0 / 16%);
+}
+.change_theme .icon-moon{
+  display: none;
+}
+
+.change_theme.is-open .icon-moon{
+display: block;
+}
+
+.change_theme.is-open .icon-sun{
+  display: none;
+}
+
+.dark{
+  background-color: #524f4e;
+}
+
+
