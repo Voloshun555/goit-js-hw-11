@@ -12,15 +12,15 @@ getTema()
  export function getTema() {
  try {
      if (localStorage.getItem('theeeema') === "dark") {
-        document.querySelector('html').classList.add('dark')
+        document.querySelector('body').classList.add('dark')
         const isOpenBtn = document.querySelector('[data-menu-open]');
         isOpenBtn.classList.add('is-open')   
      } else {
         const isOpenBtn = document.querySelector('[data-menu-open]');
-        document.querySelector('html').classList.remove('dark')
+        document.querySelector('body').classList.remove('dark')
         isOpenBtn.classList.remove('is-open')    
      }
 
  } catch (error) { }
 }
-getTema()
+

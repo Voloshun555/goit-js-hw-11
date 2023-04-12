@@ -4,46 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Page title</title>
-    <link rel="stylesheet" href="./css/my.css" />
+    <!-- <link rel="stylesheet" href="./css/my.css" /> -->
+    <link rel="stylesheet" href="./sass/index.scss" />
     <script type="module" src="./index.js"></script>
   </head>
   <body>
-    <div class="preloader">
-     <span class="loader"></span>
-    </div>
-    <section class="section-input">
-      <div>
-        <button class="change_theme"
-        data-menu-open
-        >
-          <svg width="24px" height="24">
-          <use class="icon-sun" href="./images/sprite.svg#icon-sun"></use>
-          <use class="icon-moon" href="./images/sprite.svg#icon-moon"></use>
-          </svg>
-        </button>
-       
-      </div>
-      <div class="form-section">
-        <form class="search-form" id="search-form">
-          <input
-          class="section-input-st"
-            type="text"
-            name="searchQuery"
-            autocomplete="off"
-            placeholder="Search images..."
-          />
-          <button class="glow-button" type="submit">Пошук</button>
-        </form>
-      </div>
-     
-    
-    </section>
-     
-      <div class="gallery container">
-        <!-- Картки зображень -->
-      </div>
-
-      <button type="button" class="load-more floating-button">Load more</button>
-
+    <include src="./partials/example.html"></include>
   </body>
 </html>
